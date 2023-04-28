@@ -1,0 +1,52 @@
+@layer components {
+
+  input[type=text], input[type=email], input[type=password], input[type=date], input[type=number], select {
+    @apply py-1.5 px-2 inline-block rounded border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:text-gray-300;
+
+    &::placeholder {
+      @apply text-gray-400;
+    }
+
+    &[readonly] {
+      @apply focus:ring-0 border-0 text-black bg-transparent shadow-none cursor-auto;
+    }
+
+  }
+
+  /* pending to fix the sass nesting compilation */
+  .blend-inputs {
+    input[type=text], input[type=password], input[type=date], input[type=number], select, textarea {
+      @apply shadow-none hover:bg-gray-100 focus:bg-white transition-colors;
+    }
+  }
+
+  input[type=text].blended-input {
+    @apply bg-white/50 border-transparent shadow-none transition hover:bg-white/50 hover:border-gray-300 focus:bg-white focus:shadow-sm focus:border-gray-300;
+  }
+
+  textarea {
+    @apply py-1.5 px-2 w-full rounded border-gray-200 text-sm h-32 shadow-sm;
+
+    &::placeholder {
+      @apply text-gray-400;
+    }
+  }
+
+  input[type=submit], button.button, a.button {
+    @apply cursor-pointer inline-block py-2 px-4 my-1 text-white visited:text-white text-sm bg-primary no-underline rounded transition duration-150 whitespace-nowrap hover:bg-primary-700;
+  }
+  input[type=submit].button-sm, button.button-sm, a.button.button-sm {
+    @apply cursor-pointer inline-block py-1.5 px-2.5 text-sm;
+  }
+  input[type=submit].button-tiny, button.button-tiny, a.button.button-tiny {
+    @apply cursor-pointer inline-block py-1 px-2 m-0 text-tiny;
+  }
+  input[type=submit].button-xs, button.button-xs, a.button.button-xs {
+    @apply cursor-pointer inline-block text-xs py-1 px-2 m-0;
+  }
+  input[type=submit].button-secondary, button.button-secondary, a.button-secondary {
+    @apply bg-primary-200 text-primary visited:text-primary hover:bg-primary-500;
+  }
+
+
+}

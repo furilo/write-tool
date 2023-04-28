@@ -1,0 +1,16 @@
+<% if @prompt_project %>
+  <div class="text-2xl flex items-center mb-1 inline-block">
+    <div class="text-stone-200">
+      <h1 class="text-stone-500 inline-block"><%= link_to "@#{current_user.name}", user_root_path, class: "text-stone-400" %></h1>
+      /
+    </div>
+    <div class="ml-2 text-primary font-bold">
+      <%= link_to_unless_current(@prompt_project.title || PromptProject::DEFAULT_TITLE , prompt_project_path(@prompt_project)) %>
+    </div>
+  </div>
+<% else %>
+  <div class="text-2xl flex items-center mb-1 inline-block text-stone-200 font-bold">
+    <h1 class="text-stone-500 inline-block"><%= "@#{current_user.name}" %></h1>
+    /
+  </div>
+<% end %>

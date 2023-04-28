@@ -1,0 +1,178 @@
+@charset "utf-8";
+
+@layer components {
+
+  /* Shoelace customization */
+  :root {
+    --sl-color-primary-600: theme(colors.sky.600);
+    --sl-spacing-medium: theme(spacing.2);
+  }
+
+  :not(:defined) {
+    visibility: hidden;
+  }
+
+  /* a {
+    @apply text-primary-700 underline transition hover:bg-primary-500 hover:text-white;
+  } */
+
+  header.site, footer {
+
+  }
+
+  .prompt-header {
+    @apply mt-4 mb-10 flex justify-between;
+  }
+
+  .columns-container {
+    @apply flex space-x-6 inner-scroll-shadow overflow-x-auto;
+  }
+  .clone-container {
+    @apply flex space-x-6 grow;
+  }
+  .prompt-container, .vars-container, .result-container {
+    @apply text-tiny rounded-lg p-2 min-w-[20vw] space-y-2 grow;
+  }
+  .prompt-container {
+    @apply bg-primary-100;
+  }
+  .prompt-container[data-content='false'] {
+
+  }
+  .prompt-container[data-content='false'] {
+    @apply grow-0 border-secondary-300 bg-white border-2 border-dashed;
+  }
+
+  .prompt-show-result {
+    @apply rounded-md p-8 bg-stone-50 mb-4 space-y-4;
+  }
+  .prompt-result-header {
+    @apply font-bold text-slate-500 border-b -mx-8 px-8 pt-3 pb-2 -mt-8 bg-stone-100 rounded-t-md flex items-center;
+  }
+  .prompt-metadata-label {
+    @apply text-xxs font-bold text-stone-600 rounded bg-stone-200 inline-block px-1.5 py-0.5 leading-tight mb-2 border border-stone-200;
+  }
+
+  .vars-container {
+    @apply bg-stone-100;
+  }
+  .vars-container[data-content='false'] {
+    @apply grow-0 border-stone-300 bg-white border-2 border-dashed;
+  }
+  .result-container {
+    @apply bg-stone-100 max-w-[calc(100vw-20vw-6.5rem)];
+  }
+  .result-container[data-content='false'] {
+    @apply bg-stone-100 text-center p-8 opacity-50;
+  }
+
+  .var-item {
+    @apply text-xs flex items-center space-x-2 px-1 py-1 max-w-[50vw] rounded hover:bg-stone-200 transition;
+  }
+  .var-label {
+    @apply min-w-[25%] pr-2;
+  }
+  .var-value {
+    @apply flex-1;
+  }
+  .var-conf {
+
+  }
+  .var-empty-suggestion {
+    @apply mt-2 border-t text-gray-400;
+  }
+
+  table.data-table td {
+    @apply text-xs border-b p-1;
+  }
+
+  .add-item-full {
+    @apply w-full h-full bg-secondary-50 hover:bg-secondary-100 transition rounded text-center flex content-around items-center;
+  }
+
+  .add-item-full div {
+    @apply w-full mx-auto;
+  }
+
+  .icon-button {
+    @apply flex items-center p-1 rounded hover:bg-secondary transition;
+  }
+  .icon-button svg {
+    @apply text-secondary w-5 inline-block ;
+  }
+
+  .content {
+    @apply space-y-4;
+  }
+
+  .simple-format p {
+    @apply mb-4;
+  }
+
+  .tabs {
+    @apply space-x-2;
+  }
+  .tabs > * {
+    @apply rounded-md bg-primary-100 transition hover:bg-primary-200 py-2 px-3
+           data-[active=true]:bg-transparent data-[active=true]:ring-2 data-[active=true]:ring-primary-100 ring-inset;
+  }
+
+  .user-menu {
+    @apply shadow border-stone-200 border rounded-md p-2 min-w-[250px] space-y-1;
+  }
+  .user-menu a {
+    @apply rounded block transition hover:bg-stone-100 text-sm py-2 px-3 ;
+  }
+
+
+  /* Shoelace customization */
+  .header-avatar::part(image) {
+    @apply hover:ring-2 transition;
+  }
+  [slot=trigger] {
+    @apply cursor-pointer;
+  }
+  .dropdown__trigger {
+    @apply cursor-pointer p-8;
+  }
+  sl-details::part(base) {
+    @apply border-0 border-b-[1px] p-0;
+  }
+
+  sl-details::part(header) {
+    @apply font-bold text-gray-600 content-center;
+  }
+
+  sl-details::part(header), sl-details::part(content) {
+    @apply p-0 pb-4;
+  }
+
+  sl-details::part(summary-icon) {
+    @apply order-first ml-1 mr-2;
+  }
+
+  sl-avatar.avatar-sm {
+    --size: theme(spacing.6);
+  }
+
+  sl-button::part(label) {
+    @apply flex items-center;
+  }
+
+  ::part(base) {
+    @apply text-tiny;
+  }
+
+  .inner-scroll-shadow {
+    background-image: linear-gradient(to right, white, white),
+      linear-gradient(to right, white, white),
+      linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0)),
+      linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0));
+    background-position: left center, right center, left center, right center;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+
+}

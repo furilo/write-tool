@@ -1,0 +1,9 @@
+<div class="mt-2 columns-container inner-scroll-shadow" id="ai_executions">
+  <% if @prompt_project_version.ai_executions.any? %>
+    <% @prompt_project_version.ai_executions.each do |ai_execution| %>
+      <%= render partial: "ai_executions/ai_execution", locals: { ai_execution: } %>
+    <% end %>
+  <% else %>
+    Your results will appear here
+  <% end %>
+</div>

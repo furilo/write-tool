@@ -1,0 +1,7 @@
+<%= turbo_stream.replace dom_id(@ai_unit) do %>
+  <%= render partial: "ai_units/ai_unit", locals: {
+      prompt_project: @prompt_project_version.prompt_project,
+      prompt_project_version: @prompt_project_version,
+      ai_unit: @ai_unit
+    } %>
+<% end %>

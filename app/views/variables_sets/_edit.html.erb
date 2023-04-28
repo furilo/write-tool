@@ -1,0 +1,43 @@
+<div class="vars-container" id="<%= dom_id(variables_set) %>">
+  <%= form_with model: variables_set, html: { data: { controller: "variables-sets" } } do |f| %>
+    <%= hidden_field_tag :prompt_project_version_id, @prompt_project_version.id %>
+    <div class="flex items-center justify-between border-b pb-1 mb-1">
+      <div class="text-tiny font-bold">
+        <% if variables_set.name.blank? %>
+          <%= f.text_field :name, class: "w-full", placeholder: "add a name for your variables", onchange: "this.form.requestSubmit()" %>
+        <% else %>
+          <%= variables_set.name %>
+        <% end %>
+      </div>
+      <div class="flex">
+        <%= link_to "", class: 'icon-button group', title: 'Delete variation', data: { action: "variables-sets#remove" } do %>
+          <%= inline_svg_pack_tag('icons/outline/minus-circle.svg', class:'group-hover:text-white') %>
+        <% end %>
+        <%= link_to "", class: 'icon-button group', title: 'Create variation', data: { action: "variables-sets#add" } do %>
+          <%= inline_svg_pack_tag('icons/outline/plus-circle.svg', class:'group-hover:text-white') %>
+        <% end %>
+      </div>
+    </div>
+
+    <% (variables_set.variables || {"": ""}).each do |key, value| %>
+      <div class="var-item" data-variables-sets-target="item">
+        <div class="var-label">
+          <%= f.text_field :variables_serialized, multiple: true, placeholder: "variable name", value: key, onchange: "this.form.requestSubmit()" %>
+        </div>
+
+        <div class="var-value">
+          <%= f.text_field :variables_serialized, multiple: true, placeholder: "variable name", value: value, onchange: "this.form.requestSubmit()" %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- TODO: implement suggestion -->
+    <%= pending do %>
+      <div class="var-item var-empty-suggestion">
+        <div class="var-value">
+          To add a new var, add {{ var_name }} to the prompt
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

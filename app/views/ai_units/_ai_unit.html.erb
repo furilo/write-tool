@@ -1,0 +1,55 @@
+<div class="prompt-container" id="<%= dom_id(ai_unit) %>">
+  <%= form_with model: [prompt_project, prompt_project_version, ai_unit] do |f| %>
+    <div class="flex justify-between items-center">
+      <div class="grow">
+        <% if f.object.name.blank? %>
+          <%= f.text_field :name, class: "blended-input w-full", placeholder: "Name your prompt to save it...", onchange: "this.form.requestSubmit()" %>
+        <% else %>
+          <%= f.object.name %>
+        <% end %>
+      </div>
+      <div class="flex">
+        <%= link_to "", class: 'icon-button group', title: 'Delete variation', data: { action: "model-parameters#load" } do %>
+          <%= inline_svg_pack_tag('icons/outline/minus-circle.svg', class:'group-hover:text-white') %>
+        <% end %>
+        <%= link_to "", class: 'icon-button group', title: 'Create variation', data: { action: "model-parameters#load" } do %>
+          <%= inline_svg_pack_tag('icons/outline/plus-circle.svg', class:'group-hover:text-white') %>
+        <% end %>
+      </div>
+    </div>
+
+    <sl-dropdown hoist data-controller="model-parameters">
+      <%= f.hidden_field :llm_params, data: { model_parameters_target: "llmParams" } %>
+      <sl-button slot="trigger" size="small" caret>
+        <div><%= ai_unit.ai_action %> / <%= ai_unit.ai_model %></div>
+      </sl-button>
+      <div class="flex bg-white p-2 min-w-[700px] text-tiny border rounded">
+        <div class="min-w-[300px] border px-2">
+          <sl-menu class="">
+          <% AiServices.instance.list.each do |provider| %>
+            <div class="bg-stone-200 py-1 px-2 font-bold mb-1 [&:not(:first-child)]:mt-2"><%= provider.service.section %></div>
+            <% provider.service.services.each do |service| %>
+              <% service.models.each do |model| %>
+                <sl-menu-item
+                  value="<%= service.name %> / <%= model %>"
+                  data-parameters="<%= service.parameters.join(",") %>"
+                  data-action="mouseover->model-parameters#load"
+                >
+                  <%= service.name %> / <%= model %>
+                </sl-menu-item>
+              <% end %>
+            <% end %>
+          <% end %>
+          </sl-menu>
+        </div>
+        <div class="w-full border p-2" data-model-parameters-target="item">
+        </div>
+      </div>
+    </sl-dropdown>
+
+    <!-- TODO: models dropdown -->
+    <p><%= ai_unit.llm_params.slice("service", "action").values.join(" - ") %></p>
+
+    <%= f.text_area :prompt_content, rows: 20, cols: 11, onchange: "this.form.requestSubmit()" %>
+  <% end %>
+</div>

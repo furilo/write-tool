@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="canonical" href="<%= request.url %>">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="<%= request.url %>" />
+
+  <%= display_meta_tags site: site_name, separator: '-', reverse: true %>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield(:custom_pack) %>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.3.0/dist/themes/light.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.3.0/dist/shoelace-autoloader.js"></script>
+
+  <%# javascript_include_tag "main", "data-turbo-track": "reload", defer: true, type: "module" %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+
+</head>
+
+<body class="text-gray-600" data-controller="">
+
+<div class="">
+
+  <header class="bg-primary-100 py-1 px-5 border-b text-gray-600 h-12 flex justify-between items-center">
+
+    <div class="flex">
+      <%= link_to 'home', class:'font-bold text-primary-600 uppercase flex items-center text-sm' do %>
+        <div class="w-3 h-3 mr-2 bg-primary-300 rounded"></div>
+        <div><%= site_name %></div>
+      <% end %>
+    </div>
+
+    <div class="text-left text-sm space-x-4 flex items-center">
+
+      <%= link_to 'New prompt', 'project-prompt-playground?blank_slate=1', class:'button button-xs' %>
+
+      <sl-dropdown>
+        <div slot="trigger">
+          <sl-avatar
+            image="https://images.unsplash.com/photo-1490150028299-bf57d78394e0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80&crop=right"
+            label=""
+            class="header-avatar"
+            style="--size: 2rem"
+          ></sl-avatar>
+        </div>
+
+        <sl-menu class="user-menu">
+          <%= link_to 'Your prompts', 'user', class:'' %>
+          <%= link_to 'Settings', 'settings', class:'' %>
+          <%= link_to 'Logout', 'logout', class:'' %>
+        </sl-menu>
+      </sl-dropdown>
+    </div>
+
+    <% if content_for?(:section_nav) %>
+      <%= yield(:section_nav) %>
+    <% end %>
+
+  </header>
+
+  <% if content_for?(:page_title) %>
+    <%= yield(:page_title) %>
+  <% end %>
+
+  <% if content_for?(:breadcrumb) %>
+  <div class="mt-2 mb-6 pl-10 text-gray-300 border-b pb-2">
+    <%= yield(:breadcrumb) %>
+  </div>
+  <% end %>
+
+  <div class="my-4 mx-10 grid <%= content_for?(:sidebar) ? "grid-cols-25/75" : "grid-cols-1" %> justify-between mb-16">
+
+    <% if content_for?(:sidebar) %>
+    <div class="md:pr-3 md:mr-3 lg:pr-4 lg:mr-4 xl:pr-6 xl:mr-6 md:sticky md:top-0 md:overflow-y-auto md:h-screen">
+      <div>
+        <%= yield(:sidebar) %>
+      </div>
+    </div>
+    <% end %>
+
+    <main>
+      <%= content_for?(:content) ? yield(:content) : yield %>
+    </main>
+
+  </div>
+
+  <%# render 'layouts/application/footer' %>
+
+  <footer class="footer py-2 px-10 text-gray-300 border-t">
+    footer
+  </footer>
+
+</div>
+
+<script>
+
+/*
+
+## Clone elements
+
+<button class="clone-trigger" data-target=".el-to-clone" data-container=".clone-container">Clone</button>
+<div class="el-to-clone">element to be cloned</div>
+<div class="clone-container">destination container of the clone</div>
+
+*/
+
+const cloneTrigger = document.querySelector(".clone-trigger");
+cloneTrigger.addEventListener("click", function() {
+  // Get the target selector from the data attribute
+  const targetSelector = cloneTrigger.getAttribute("data-target");
+
+  // Get the original element by selector
+  const originalElement = document.querySelector(targetSelector);
+
+  // Clone the original element
+  const clonedElement = originalElement.cloneNode(true);
+
+  // Get the container selector from the data attribute
+  const containerSelector = cloneTrigger.getAttribute("data-container");
+
+  // Get the container element by selector
+  const containerElement = document.querySelector(containerSelector);
+
+  // Append the cloned element to the container element
+  containerElement.appendChild(clonedElement);
+});
+
+</script>
+</body>
+</html>

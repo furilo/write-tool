@@ -1,0 +1,13 @@
+--- !ruby/object:Jumpstart::Configuration
+application_name: WriteTool
+business_name: WriteTool
+business_address: ''
+domain: example.com
+default_from_email: Jumpstart <support@example.com>
+support_email: fernando@populate.tools
+email_provider: ''
+personal_accounts: true
+register_with_account: false
+apns: false
+fcm: false
+collect_billing_address: false

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="h-full antialiased" lang="<%= I18n.locale %>">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="canonical" href="<%= request.url %>">
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="<%= request.url %>" />
+
+  <%= display_meta_tags site: site_name, separator: '-', reverse: true %>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= viewport_meta_tag %>
+
+  <%= yield(:custom_pack) %>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.3.0/dist/themes/light.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.3.0/dist/shoelace-autoloader.js"></script>
+
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <%= stylesheet_link_tag "tailwind", media: "all", "data-turbo-track": "reload" %>
+
+  <%= yield :head %>
+</head>
+
+<body class="text-gray-600" data-controller="">
+
+<div class="">
+  <%= render "layouts/header" %>
+
+  <% if content_for?(:page_title) %>
+    <%= yield(:page_title) %>
+  <% end %>
+
+  <%= render partial: "shared/flash" %>
+
+  <div class="my-4 mx-10 grid <%= content_for?(:sidebar) ? "grid-cols-25/75" : "grid-cols-1" %> justify-between mb-16">
+
+    <% if content_for?(:sidebar) %>
+    <div class="md:pr-3 md:mr-3 lg:pr-4 lg:mr-4 xl:pr-6 xl:mr-6 md:sticky md:top-0 md:overflow-y-auto md:h-screen">
+      <div>
+        <%= yield(:sidebar) %>
+      </div>
+    </div>
+    <% end %>
+
+    <main>
+      <%= render "layouts/breadcrumb" if current_user %>
+
+      <%= content_for?(:content) ? yield(:content) : yield %>
+    </main>
+
+  </div>
+
+  <%# render 'layouts/application/footer' %>
+
+  <footer class="py-2 px-10 text-gray-300 border-t">
+    footer
+  </footer>
+
+  <ninja-keys data-controller="command-palette" hideBreadcrumbs></ninja-keys>
+</div>
+
+</body>
+</html>

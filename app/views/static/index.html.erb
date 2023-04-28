@@ -1,0 +1,32 @@
+<style>
+body { background-color: theme(colors.sky.900);}
+</style>
+
+<div class="bg-gradient-to-br from-primary to-violet-900 -mx-10 -my-4 py-24">
+  <div class="mx-auto max-w-4xl">
+    <div class="text-center">
+      <h1 class="font-display text-6xl font-bold text-white"><%= site_name %></h1>
+      <p class="font-display text-5xl text-white/60">Test, track, improve<br>and collaborate on your prompts</p>
+    </div>
+
+    <div class="mt-32 text-white space-y-8">
+      <%
+      what_is = [
+        ["Test", "Quickly test your prompts against different models and configurations"],
+        ["Track", "Keep track of the prompt variations you have tried and save your best ones. Repeat full set of tests with one click: news vars, models, and configurations"],
+        ["Improve", "Compare your prompt variations and see which ones are working best"],
+        ["Collaborate", "Share your prompt variations with your team and collaborate on the best ones"],
+      ]
+      %>
+
+      <div class="grid grid-cols-3 gap-12">
+        <% what_is.each do | feature | %>
+          <div class="rounded bg-white/10 p-8">
+            <div class="font-bold text-xl font-display"><%= feature[0] %></div>
+            <div class="text-xs leading-tight mt-2 text-white/75"><%= feature[1] %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

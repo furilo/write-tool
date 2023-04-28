@@ -1,0 +1,33 @@
+
+<div class="max-w-screen-md mx-auto">
+
+  <div class="my-4">
+
+    <div class="p-12 bg-gray-100 rounded-md flex">
+
+      <div class="w-1/4">
+        <%= inline_svg_pack_tag('svgs/illustration-man.svg', class:'h-32 w-16', style:'transform: scaleX(-1);') %>
+      </div>
+
+      <div class="w-3/4">
+        <h1 class="text-blue my-2">Invita a tus colegas</h1>
+
+        <div class="">
+          <div class="text-sm my-2">
+            <p>Invita a otras personas de tu organización que necesiten buscar licitaciones</p>
+          </div>
+          <input type="text" class="w-1/2" placeholder="Correo-e corporativo">
+          <%= link_to 'Invitar', '', class:'button mt-8' %>
+
+          <%= link_to 'Puedes invitar a varios usuarios a la vez, o añadirles sin que reciban invitación',
+                'options_users',
+                class:'block mt-8 text-sm' %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

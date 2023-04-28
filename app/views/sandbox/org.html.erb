@@ -1,0 +1,11 @@
+<% %>
+
+<% content_for(:sidebar) do %><% end %>
+
+<div class="space-y-8">
+  <% data_projects.each do | project | %>
+    <%= link_to 'project', class:'block' do %>
+      <%= project[:name] %>
+    <% end %>
+  <% end %>
+</div>

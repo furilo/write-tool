@@ -1,0 +1,35 @@
+<div class="var-item">
+  <div class="var-label"><%= var[:name] %></div>
+
+  <div class="var-value">
+
+    <% if var[:type] == 'text' %>
+      <sl-input size="small" type="text" value="<%= var[:default_value] %>"></sl-input>
+    <% end %>
+
+    <% if var[:type] == 'textarea' %>
+      <sl-input size="small" type="text" value="<%= var[:default_value] %>"></sl-input>
+    <% end %>
+
+    <% if var[:type] == 'number' %>
+      <sl-input size="small" type="number" value="<%= var[:default_value] %>"></sl-input>
+    <% end %>
+
+    <% if var[:type] == 'boolean' %>
+      <sl-switch size="small">Si</sl-switch>
+    <% end %>
+
+    <% if var[:type] == 'select' %>
+    <sl-select clearable value="option-1" size="small">
+      <% var[:options].each do | option | %>
+        <sl-option value="option-" size="small"><%= option %></sl-option>
+      <% end %>
+    </sl-select>
+    <% end %>
+
+  </div>
+
+  <% if var[:conf] == true %>
+    <div class="var-conf"><%= inline_svg_pack_tag('icons/solid/cog-6-tooth.svg', class:'icon-svg w-4 transform text-secondary ') %></div>
+  <% end %>
+</div>

@@ -1,0 +1,128 @@
+<%
+
+prompt = data_prompts.first
+prompt_versions = data_prompt_versions
+
+%>
+
+<% content_for(:breadcrumb) do %>
+  <%
+  breadcrumb_links = [
+    {
+      name: 'populate',
+      href: 'org',
+    },
+    {
+      name: 'gobierto-questions-assistant',
+      href: 'project'
+    },
+    {
+      name: 'prompts',
+      href: 'project#prompts'
+    },
+    {
+      name: 'make-question',
+      href: ''
+    },
+  ]
+  %>
+  <%# breadcrumb breadcrumb_links %>
+<% end %>
+
+<div class="max-w-7xl mx-auto">
+
+  <div class="prompt-header">
+    <div>
+      <%= prompt_title prompt[:title] %>
+      <div class="text-sm"><%= prompt[:description] %></div>
+      <%# prompt_meta prompt, location: 'prompt_page' %>
+    </div>
+    <div class="mt-4 tabs text-tiny">
+      <%= link_to 'Fork', 'project-prompt-playground?blank_slate=1&fork=1'  %>
+      <%= link_to 'Open in Playground', 'project-prompt-playground?single_prompt=1' %>
+    </div>
+  </div>
+
+  <%
+  prompt_project_links = [
+    {
+      name: 'Current version',
+      href: 'project-prompt-playground',
+      active: true
+    },
+    {
+      name: 'History (8)',
+      href: '#'
+    },
+    {
+      name: 'Experiments (4)',
+      href: '#'
+    },
+  ]
+  %>
+
+  <div class="flex justify-between text-tiny mb-6">
+    <div class="tabs">
+      <% prompt_project_links.each do |link| %>
+        <%= link_to link[:name], link[:href], data: { active: link[:active] } %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-8 hidden">
+    <div><span class="font-bold"><%= prompt_versions.size %></span> saved versions of this prompt.</div>
+    <div class="opacity-50"><span class="font-bold">123</span> runs of this prompt.</div>
+  </div>
+
+
+  <% prompt         = prompt_versions.first %>
+  <% prompt_result  = data_results.first %>
+
+  <div >
+
+    <div class="prompt-show-result">
+      <h2 class="prompt-result-header">
+        <div>Prompt</div>
+        <div class="font-normal text-xs ml-4"><%= prompt[:model] %> · Temp: 0.1</div>
+      </h2>
+      <div>
+        <div class="prompt-metadata-label">Prompt System</div>
+        <div contenteditable="true"><%= prompt[:prompt_system] %></div>
+      </div>
+      <div>
+        <div class="prompt-metadata-label">Prompt User</div>
+        <div contenteditable="true"><%= prompt[:prompt_user] %></div>
+      </div>
+    </div>
+
+    <div class="prompt-show-result">
+      <h2 class="prompt-result-header">Completion</h2>
+      <div contenteditable="true" class="simple-format">
+        <%= simple_format prompt_result[:completion] %>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="hidden">
+
+  <% prompt_versions.each do |prompt_version| %>
+
+    <% if prompt_version == prompt_versions.first %><% end %>
+
+    <%= link_to 'project-prompt-playground' do %>
+      <div class="text-sm rounded-lg p-4 flex mb-4 transition
+                  <%= prompt_version == prompt_versions.first ? "bg-primary-100 hover:bg-primary-200" : "bg-stone-100 hover:bg-stone-200" %>"
+      >
+        <div class="basis-32 "><%= prompt_version[:created_at].to_fs(:short) %></div>
+        <div class=""><%= prompt_version[:named_version] %></div>
+        <div class="mx-4"><%= tag.button 'Playground', class:'button' %></div>
+      </div>
+    <% end %>
+  <% end %>
+
+  </div>
+
+</div>
+

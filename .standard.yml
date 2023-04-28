@@ -1,0 +1,6 @@
+ignore:
+  - 'lib/jumpstart/test/dummy/**/*'
+  - '**/*':
+    - Style/HashSyntax
+  - 'app/helpers/sandbox_helper.rb'
+  - 'test.rb'

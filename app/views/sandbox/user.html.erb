@@ -1,0 +1,38 @@
+<% %>
+
+<% content_for(:breadcrumb) do %>
+  <%
+  breadcrumb_links = [
+    {
+      name: 'populate',
+      href: 'org'
+    },
+    {
+      name: 'gobierto-questions-assistant',
+      href: 'project'
+    }
+  ]
+  %>
+  <%# breadcrumb breadcrumb_links %>
+<% end %>
+
+<% content_for(:sidebar) do %><% end %>
+
+<div class="text-2xl font-bold mt-4 mb-10 text-stone-200">
+  <%= tag.h1 '@fernandoblat', class:'text-stone-500 inline-block' %> /
+</div>
+
+<div class="space-y-8">
+
+  <% data_prompts.each do | prompt | %>
+    <div>
+      <%= link_to 'project-prompt-home', class:'block rounded hover:bg-gray-100 p-2 -ml-2 -mt-2' do %>
+        <h2 class="font-bold text-primary-600"><%= prompt[:title] %></h2>
+        <div class="text-sm"><%= prompt[:description] %></div>
+      <% end %>
+      <%= prompt_meta prompt %>
+    </div>
+  <% end %>
+
+</div>
+

@@ -1,0 +1,38 @@
+<%
+
+prompt_vars = data_prompt_vars
+
+%>
+
+<div class="vars-container" data-content="<%= variation_content %>">
+
+<% if variation_content %>
+
+  <% if vars %>
+    <div class="flex items-center justify-between border-b pb-1 mb-1">
+      <div class="grow">
+        <input type="text" class="blended-input w-full" placeholder="Name your var set to save it...">
+      </div>
+      <div class="flex">
+        <%= render 'variation-actions' %>
+      </div>
+    </div>
+
+    <% prompt_vars.each do | var | %>
+      <%= render 'forms-var', var: var %>
+    <% end %>
+  <% else %>
+    <div class="py-8">
+      no vars yet
+    </div>
+  <% end %>
+
+  <div class="var-item var-empty-suggestion">
+    <div class="var-value">
+      To add a new var, add {{ var_name }} to the prompt
+    </div>
+  </div>
+
+<% end %>
+
+</div>

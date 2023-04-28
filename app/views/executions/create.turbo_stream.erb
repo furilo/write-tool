@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "ai_executions" do %>
+  <%= render partial: "ai_executions/index", locals: {
+    prompt_project_version: @prompt_project_version
+  } %>
+<% end %>

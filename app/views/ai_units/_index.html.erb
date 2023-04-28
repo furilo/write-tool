@@ -1,0 +1,12 @@
+<div class="columns-container" id="ai_units">
+  <%= render partial: "ai_units/ai_unit", collection: prompt_project_version.ai_units, locals: {
+      prompt_project: prompt_project_version.prompt_project,
+      prompt_project_version: prompt_project_version
+    } %>
+
+  <div class="prompt-container">
+    <%= form_with model: [prompt_project_version.prompt_project, prompt_project_version, prompt_project_version.ai_units.new] do |f| %>
+      <%= f.submit "add variation", class: "add-item-full" %>
+    <% end %>
+  </div>
+</div>

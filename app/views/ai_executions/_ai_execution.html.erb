@@ -1,0 +1,14 @@
+<div id="<%= dom_id(ai_execution) %>" class="result-container">
+  <div class="flex items-center justify-between border-b pb-1 mb-1">
+    <div class="text-tiny font-bold">
+      <h3 class=" font-bold text-secondary"><%= ai_execution.ai_unit.name %> + <%= ai_execution.variables_set.name %></h3>
+    </div>
+    <div class="flex">
+      <!-- TODO: actions -->
+    </div>
+  </div>
+
+  <div class="text-tiny my-2 [&_p]:mb-4">
+    <p><%= ai_execution.decorate.response %></p>
+  </div>
+</div>

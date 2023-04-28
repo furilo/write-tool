@@ -1,0 +1,209 @@
+<%
+
+blank_slate = params['blank_slate']
+single_prompt = params['single_prompt']
+
+if blank_slate
+
+elsif single_prompt
+  results = data_results.first(1)
+
+else
+  prompts = data_prompt_versions
+  prompt_vars = data_prompt_vars
+  results = data_results
+
+  prompt_vars_variations = [
+    {
+      content: true,
+    },
+    {
+      content: true,
+    },
+    {
+      content: true,
+    },
+  ]
+end
+
+prompt = data_prompts.first
+providers = data_providers
+
+%>
+
+<% content_for(:breadcrumb) do %>
+  <%
+  breadcrumb_links = [
+    {
+      name: 'populate',
+      href: 'org'
+    },
+    {
+      name: 'gobierto-questions-assistant',
+      href: 'project'
+    },
+    {
+      name: 'prompts',
+      href: 'project#prompts'
+    },
+    {
+      name: 'make-question',
+      href: 'project-prompt-home'
+    },
+  ]
+  %>
+  <%# breadcrumb breadcrumb_links %>
+<% end %>
+
+<div class="prompt-header">
+  <div class="">
+    <%= prompt_title prompt[:title], blank_slate: blank_slate %>
+    <%# prompt_description prompt[:description], blank_slate: blank_slate %>
+  </div>
+  <%# prompt_meta prompt %>
+</div>
+
+<!--
+  <% if params['mode'] == 'context' %><% end %>
+  <% if params['mode'] == 'prompt' %><% end %>
+  <% if params['mode'] == 'vars' %><% end %>
+
+  <div class="text-xs mb-4 flex items-center">
+    <label>Focus</label>
+    <sl-button-group class="ml-4" label="">
+      <%# <sl-button size="small" href="?mode=context">Data</sl-button> %>
+      <sl-button size="small" href="?mode=prompt" variant="primary">Prompt</sl-button>
+      <sl-button size="small" href="?mode=vars" >Vars</sl-button>
+    </sl-button-group>
+  </div>
+-->
+
+<div class="mb-8">
+
+  <h2 class="font-bold text-secondary">Prompts</h2>
+
+  <div class="columns-container ">
+    <div class="clone-container">
+
+      <% if prompts %>
+        <% prompts.each do | prompt | %>
+
+          <% if prompt[:content] %>
+            <%= render 'prompt-ui', prompt_content: prompt[:content], prompt_system: prompt[:prompt_system], prompt_user: prompt[:prompt_user] %>
+          <% end %>
+
+        <% end %>
+      <% else %>
+        <%= render 'prompt-ui', prompt_content: 'true', prompt_system: '', prompt_user: '' %>
+      <% end %>
+    </div>
+
+    <div class="prompt-container" data-content="false">
+      <button class="add-item-full clone-trigger" data-target=".prompt-container" data-container=".clone-container">
+        <div>add variation</div>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="mb-8">
+
+  <h2 class="font-bold text-secondary">Vars</h2>
+
+  <div class="columns-container">
+
+    <% if prompt_vars_variations %>
+      <% prompt_vars_variations.each do | variation | %>
+        <%= render 'prompt-vars', variation_content: variation[:content], vars: true %>
+      <% end %>
+    <% else %>
+      <%= render 'prompt-vars', variation_content: 'true', vars: false %>
+    <% end %>
+
+    <div class="vars-container" data-content="false">
+      <button class="add-item-full">
+        <div>add variation</div>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="mb-8">
+
+  <h2 class="font-bold text-secondary">Results</h2>
+
+  <div class="mt-2 columns-container inner-scroll-shadow">
+
+    <% if results %>
+      <% results.each do | result | %>
+      <div class="result-container" data-content="true">
+
+        <% if result[:completion] %>
+
+          <div class="flex items-center justify-between border-b pb-1 mb-1">
+            <div class="text-tiny font-bold"><h3 class=" font-bold text-secondary"><%= result[:variation] %></h3></div>
+            <div class="flex">
+              <%= render 'result-actions' %>
+            </div>
+          </div>
+          <div class="text-tiny my-2 [&_p]:mb-4"><%= simple_format result[:completion] %></div>
+
+        <% else %>
+          ...
+        <% end %>
+
+      </div>
+      <% end %>
+    <% else %>
+      <div class="result-container" data-content="false">
+        Your results will appear here
+      </div>
+    <% end %>
+
+  </div>
+
+</div>
+
+
+
+<div class="fixed bottom-0 left-0 w-full bg-gray-100 border-t border-gray-200 px-10 p-2">
+  <sl-button class="" size="small" variant="primary">Test</sl-button>
+  <sl-button class="" size="small" variant="primary" outline>Test soft</sl-button>
+</div>
+
+
+
+<sl-tab-group class="tabs-closable hidden">
+  <sl-tab slot="nav" panel="general">Initial</sl-tab>
+  <sl-tab slot="nav" panel="closable-1" closable>Variation A</sl-tab>
+  <sl-tab slot="nav" panel="closable-2" closable>Variation B</sl-tab>
+  <sl-tab slot="nav" panel="closable-3" closable>Variation C</sl-tab>
+
+  <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
+  <sl-tab-panel name="closable-1">This is the first closable tab panel.</sl-tab-panel>
+  <sl-tab-panel name="closable-2">This is the second closable tab panel.</sl-tab-panel>
+  <sl-tab-panel name="closable-3">This is the third closable tab panel.</sl-tab-panel>
+</sl-tab-group>
+
+<script>
+  const tabGroup = document.querySelector('.tabs-closable');
+
+  tabGroup.addEventListener('sl-close', async event => {
+    const tab = event.target;
+    const panel = tabGroup.querySelector(`sl-tab-panel[name="${tab.panel}"]`);
+
+    // Show the previous tab if the tab is currently active
+    if (tab.active) {
+      tabGroup.show(tab.previousElementSibling.panel);
+    }
+
+    // Remove the tab + panel
+    tab.remove();
+    panel.remove();
+  });
+</script>

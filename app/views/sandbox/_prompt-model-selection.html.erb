@@ -1,0 +1,27 @@
+<sl-dropdown hoist>
+  <sl-button slot="trigger" size="small" caret>
+    <div>gpt-4</div>
+  </sl-button>
+  <div class="flex bg-white p-2 min-w-[600px] text-tiny border rounded">
+    <div class="min-w-[200px] border px-2">
+      <sl-menu class="">
+      <% providers.each do |provider| %>
+        <div class="bg-stone-200 py-1 px-2 font-bold mb-1 [&:not(:first-child)]:mt-2"><%= provider[:provider] %></div>
+        <% provider[:models].each do |model| %>
+          <sl-menu-item value=""><%= model[:model] %></sl-menu-item>
+        <% end %>
+      <% end %>
+      </sl-menu>
+    </div>
+    <div class="w-full border p-2">
+      <!--
+        when selecting a model, load a turbo frame with its config here?
+        if difficult, I can try another markup
+      -->
+      <% providers.first[:models].first[:conf].each do |conf| %>
+        <%= render 'forms-var', var: conf %>
+      <% end %>
+
+    </div>
+  </div>
+</sl-dropdown>

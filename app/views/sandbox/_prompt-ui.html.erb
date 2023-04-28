@@ -1,0 +1,23 @@
+<%
+
+providers = data_providers
+
+%>
+
+<div class="prompt-container" data-content="<%= prompt_content %>">
+
+  <div class="flex justify-between items-center">
+    <div class="grow">
+      <input type="text" class="blended-input w-full" placeholder="Name your prompt to save it...">
+    </div>
+    <div class="ml-2 flex">
+      <%= render 'variation-actions' %>
+    </div>
+  </div>
+
+  <div><%= render 'prompt-model-selection', providers: providers %></div>
+
+  <sl-textarea resize="auto" placeholder="Prompt - system" size="small" value="<%= prompt_system %>"></sl-textarea>
+
+  <sl-textarea resize="auto" placeholder="Prompt - user" size="small" value="<%= prompt_user %>"></sl-textarea>
+</div>

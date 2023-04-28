@@ -1,0 +1,13 @@
+<div class="columns-container">
+  <% (prompt_project_version.variables_sets || [current_user.variables_sets.new]).each do |variables_set| %>
+    <%= render partial: "variables_sets/edit", locals: { variables_set: variables_set } %>
+  <% end %>
+
+  <div id="new-variables-set"></div>
+
+  <div class="vars-container">
+    <%= link_to new_prompt_project_prompt_project_version_variables_set_path(@prompt_project, @prompt_project_version), class: "add-item-full", method: :get do %>
+      <div>add variation</div>
+    <% end %>
+  </div>
+</div>

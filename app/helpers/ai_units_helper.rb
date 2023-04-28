@@ -1,0 +1,2 @@
+module AiUnitsHelper
+end

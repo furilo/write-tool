@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(VariablesSet.new) do %>
+  <%= render partial: "variables_sets/edit", locals: { variables_set: @variables_set } %>
+<% end %>
