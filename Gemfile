@@ -29,7 +29,7 @@ gem "jbuilder", github: "excid3/jbuilder", branch: "partial-paths" # "~> 2.11"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 5.0"
 
-gem "sidekiq", "~> 7.0"
+gem "sidekiq", "~> 7.1"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data"
